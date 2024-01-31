@@ -38,6 +38,8 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 /**.......Functions for writing an error to erro_buffer and stderr..........*/
-void _eputs(char *);
-void _eput(char);
+void _eputs(const char *);
+void _eput(const char);
+/**....Check file open operation error....*/
+void check_file_open_error(FILE *, const char *);
 #endif /** MONTY_H*/
