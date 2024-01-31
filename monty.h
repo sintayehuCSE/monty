@@ -1,5 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#define FLUSH_BUFFER 1
+#define WRITE_BUFFER 1024
 extern unsigned int line_number;
 /**....List of needed data structures "Database tables, as I call them"...*/
 /**
@@ -30,4 +37,7 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+/**.......Functions for writing an error to erro_buffer and stderr..........*/
+void _eputs(char *);
+void _eput(char);
 #endif /** MONTY_H*/
