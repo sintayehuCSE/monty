@@ -1,5 +1,5 @@
 #include "monty.h"
-unsigned int line_number = 1;
+FILE *file_ptr = NULL;
 /**
 * main - Entry to the monty bytecode interpreter
 * @ac: Count of cmd argument to the interpreter
@@ -9,7 +9,8 @@ unsigned int line_number = 1;
 */
 int main(int ac, char **argv)
 {
-	FILE *file_ptr = NULL;
+	unsigned int line_number = 0;
+	stack_t *stack_head = NULL;
 
 	if (ac != 2)
 	{
@@ -20,7 +21,10 @@ int main(int ac, char **argv)
 	else
 	{
 		file_ptr = fopen(argv[1], "r");
-		check_file_open_error(file_ptr, argv[1]);
+		check_file_open_error(argv[1]);
+		read_instructions(&line_number, &stack_head);
 	}
-	return (0);
+	fclose(file_ptr);
+	free_memory(&stack_head);
+	return (EXIT_SUCCESS);
 }

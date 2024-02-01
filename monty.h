@@ -4,10 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #define FLUSH_BUFFER 1
 #define WRITE_BUFFER 1024
-extern unsigned int line_number;
+#define READ_BUFFER 1024
+#define WRITE_BUFFER 1024
+#define UNUSED(x) (void)(x)
+extern FILE *file_ptr;
 /**....List of needed data structures "Database tables, as I call them"...*/
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -37,9 +41,43 @@ typedef struct instruction_s
 	char *opcode;
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+
 /**.......Functions for writing an error to erro_buffer and stderr..........*/
 void _eputs(const char *);
 void _eput(const char);
+void error_invalid_opcode(unsigned int, char *, stack_t **);
+void error_push_opcode(stack_t **, unsigned int);
+void malloc_error(stack_t **);
+
+
+
+/**......Function for writing an output into output buffer and stdout.......*/
+void _puts(const char *);
+void _put(const char);
+
+
 /**....Check file open operation error....*/
-void check_file_open_error(FILE *, const char *);
+void check_file_open_error(const char *);
+
+
+/**....Read each instruction in a monty bytecode..........................*/
+void read_instructions(unsigned int *, stack_t **);
+ssize_t read_line(char **, size_t *, unsigned int *, long *, stack_t **);
+int is_empty(long *);
+int extract_opcode(char **, unsigned int *, stack_t **);
+void capture_end_of_file(long *);
+
+
+/**........Stack Operations............*/
+void stack_push(stack_t **, unsigned int);
+void stack_pall(stack_t **, unsigned int);
+
+/**......Function for stack node manipulation.......*/
+stack_t *add_node_top(stack_t **, int);
+
+
+/**........Utility/Special purpose functions.................*/
+int free_memory(stack_t **);
+void convert_number_to_str(int, char *, int *);
 #endif /** MONTY_H*/
