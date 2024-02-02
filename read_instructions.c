@@ -9,73 +9,82 @@
 void read_instructions(unsigned int *line_number, stack_t **stack_head)
 {
 	char *line_ptr = NULL;
-	size_t line_size;
 	long check_off_set;
-	long eof;
+	long end_of_file;
 
-	capture_end_of_file(&eof);
-	if (read_line(&line_ptr, &line_size, line_number, &check_off_set, stack_head))
+	end_of_file = capture_end_of_file();
+	if (read_line(&line_ptr, line_number, &check_off_set, stack_head))
 	{
-		while (check_off_set != eof)
+		while (check_off_set < end_of_file)
 		{
-			read_line(&line_ptr, &line_size, line_number, &check_off_set, stack_head);
+			read_line(&line_ptr, line_number, &check_off_set, stack_head);
 		}
 	}
 }
 /**
 * capture_end_of_file - Set factor for determining exhaustion of all
 * instruction within the monty bytecode file
-* @eof: Pointer to Off_set value for end of file
 *
 * Return: Nothing
 */
-void capture_end_of_file(long *eof)
+long capture_end_of_file(void)
 {
-	fseek(file_ptr, 0L, SEEK_END);
-	*eof = ftell(file_ptr);
-	fseek(file_ptr, 0L, SEEK_SET);
+	long end_of_file;
+
+	if (fseek(file_ptr, 0L, SEEK_END) == -1)
+	{
+		_eputs("Something went wrong@func capture_end_of_file");
+		_eputs(", please re-run your interpreter\n");
+		_eput(FLUSH_BUFFER);
+		exit(EXIT_FAILURE);
+	}
+	end_of_file = ftell(file_ptr);
+	rewind(file_ptr);/**...Same as fseek(file_ptr, 0L, SEEK_SET); ...*/
+	return (end_of_file);
 }
 /**
 * read_line - Read a single line from monty bytecode file at a time
 * @line_buffer: A buffer to hold line content
-* @buffer_size: Size of the line_buffer
 * @line_number: The instruction line number
 * @check_off_set: Current position in the monty bytecode file
 * @stack_head: Pointer to the head node of stack struct
 *
 * Return: The number of instruction bytes on a line
 */
-ssize_t read_line(char **line_buffer, size_t *buffer_size,
-		  unsigned int *line_number, long *check_off_set, stack_t **stack_head)
+ssize_t read_line(char **line_buffer, unsigned int *line_number,
+		  long *check_off_set, stack_t **stack_head)
 {
 	ssize_t read_byte = 0, i = 0;
 	static long off_set;
 	char eol[1] = {'\n'};
+	char check_buf[1];
 	char read_buffer[READ_BUFFER];
 	int not_empty = 1;
 
-	if (!off_set && not_empty && is_empty(&off_set))
+	if ((off_set == 0) && (is_empty(&off_set) == 1))
 		return (read_byte);
-	if (not_empty)
+	if (not_empty == 1 && off_set == 0)
 	{
 		fseek(file_ptr, 0L, SEEK_SET);
 		off_set = ftell(file_ptr);
-		not_empty = 0;
 	}
 	if (off_set)
 		fseek(file_ptr, off_set, SEEK_SET);
 	/**Read in to a buffer untill you hit line feed*/
-	fread(read_buffer, 1, 1, file_ptr);
+	fread(check_buf, 1, 1, file_ptr);
+	read_buffer[i] = check_buf[0];
 	while (eol[0] != read_buffer[i])
 	{
-		fread(read_buffer, 1, 1, file_ptr);
+		fread(check_buf, 1, 1, file_ptr);
 		i++;
+		read_buffer[i] = check_buf[0];
 	}
-	off_set = i + 1;
+	/** Note read_buffer[i] == '\n' at the end of this while loop*/
+	read_buffer[i + 1] = '\0';
+	off_set += i + 1;
 	*check_off_set = off_set;
 	*line_number = *line_number + 1;
 	*line_buffer = read_buffer;
-	*buffer_size = (size_t)i + 1;
 	extract_opcode(line_buffer, line_number, stack_head);
 	return (i);
 }

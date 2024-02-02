@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
-* push_stack - Push an integer on to the top of stack
+* stack_push - Push an integer on to the top of stack
 * @stack: Pointer to the head node of the stack
 * @line_number: Line number of monty bytecode containing
 * this particuar instruction.
@@ -21,7 +21,7 @@ void stack_push(stack_t **stack, unsigned int line_number)
 	add_node_top(stack, arg_int);
 }
 /**
-* pall_stack - Print all the values of stack, starting from top
+* stack_pall - Print all the values of stack, starting from top
 * @stack: Pointer to the head node or top node of the stack
 * @line_number: Line number indicating position of pall operation
 * within the monty bytecode file
