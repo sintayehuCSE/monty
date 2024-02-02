@@ -64,7 +64,6 @@ void check_file_open_error(const char *);
 /**....Read each instruction in a monty bytecode..........................*/
 void read_instructions(unsigned int *, stack_t **);
 ssize_t read_line(char **, unsigned int *, long *, stack_t **);
-int is_empty(long *);
 int extract_opcode(char **, unsigned int *, stack_t **);
 long capture_end_of_file(void);
 

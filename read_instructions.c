@@ -13,6 +13,8 @@ void read_instructions(unsigned int *line_number, stack_t **stack_head)
 	long end_of_file;
 
 	end_of_file = capture_end_of_file();
+	if (!end_of_file)
+		exit(EXIT_FAILURE);
 	if (read_line(&line_ptr, line_number, &check_off_set, stack_head))
 	{
 		while (check_off_set < end_of_file)
@@ -54,23 +56,12 @@ long capture_end_of_file(void)
 ssize_t read_line(char **line_buffer, unsigned int *line_number,
 		  long *check_off_set, stack_t **stack_head)
 {
-	ssize_t read_byte = 0, i = 0;
-	static long off_set;
+	ssize_t i = 0;
 	char eol[1] = {'\n'};
 	char check_buf[1];
 	char read_buffer[READ_BUFFER];
-	int not_empty = 1;
 
-	if ((off_set == 0) && (is_empty(&off_set) == 1))
-		return (read_byte);
-	if (not_empty == 1 && off_set == 0)
-	{
-		fseek(file_ptr, 0L, SEEK_SET);
-		off_set = ftell(file_ptr);
-	}
-	if (off_set)
-		fseek(file_ptr, off_set, SEEK_SET);
-	/**Read in to a buffer untill you hit line feed*/
+	/**Read in to a read_buffer untill you hit line feed*/
 	fread(check_buf, 1, 1, file_ptr);
 	read_buffer[i] = check_buf[0];
 	while (eol[0] != read_buffer[i])
@@ -81,26 +72,11 @@ ssize_t read_line(char **line_buffer, unsigned int *line_number,
 	}
 	/** Note read_buffer[i] == '\n' at the end of this while loop*/
 	read_buffer[i + 1] = '\0';
-	off_set += i + 1;
-	*check_off_set = off_set;
+	*check_off_set = ftell(file_ptr);
 	*line_number = *line_number + 1;
 	*line_buffer = read_buffer;
 	extract_opcode(line_buffer, line_number, stack_head);
 	return (i);
-}
-/**
-* is_empty - Check if a monty byte code file is empty file or not
-* @off_set: Pointer to current off_set of the file
-*
-* Return: the file status. if true 1 otherwise 0
-*/
-int is_empty(long *off_set)
-{
-	fseek(file_ptr, 0L, SEEK_END);
-	*off_set = ftell(file_ptr);
-	if (!*off_set)
-		return (1);
-	return (0);
 }
 /**
 * extract_opcode - Extracts opcode on a single line of the monty bytecode
