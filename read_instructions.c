@@ -102,6 +102,7 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 		{"nop", stack_nop},
 		{"sub", stack_sub},
 		{"div", stack_div},
+		{"mul", stack_mul},
 		{NULL, NULL}
 	};
 

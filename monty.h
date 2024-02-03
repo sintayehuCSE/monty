@@ -46,6 +46,7 @@ typedef struct instruction_s
 /**.......Functions for writing an error to erro_buffer and stderr..........*/
 void _eputs(const char *);
 void _eput(const char);
+void malloc_error(stack_t **);
 void error_invalid_opcode(unsigned int, char *, stack_t **);
 void error_push_opcode(stack_t **, unsigned int);
 void error_pint_opcode(unsigned int);
@@ -55,7 +56,7 @@ void error_add_opcode(stack_t **, unsigned int);
 void error_sub_opcode(stack_t **, unsigned int);
 void error_div_opcode(stack_t **, unsigned int);
 void error_div_by_zero(stack_t **, unsigned int);
-void malloc_error(stack_t **);
+void error_mul_opcode(stack_t **, unsigned int);
 
 
 
@@ -85,6 +86,7 @@ void stack_add(stack_t **, unsigned int);
 void stack_nop(stack_t **, unsigned int);
 void stack_sub(stack_t **, unsigned int);
 void stack_div(stack_t **, unsigned int);
+void stack_mul(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);

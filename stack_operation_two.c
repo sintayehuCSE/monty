@@ -82,3 +82,26 @@ void stack_div(stack_t **stack, unsigned int line_number)
 	temp->next = NULL;
 	free_memory(&temp);
 }
+/**
+* stack_mul - Multiplies the second top element of the stack
+* with the top element of the stack
+* @stack: Pointer to the head node of the stack struct
+* @line_number: The line where mul opcode is located
+*
+* Return: Nothing
+*/
+void stack_mul(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+	int mul;
+
+	if (!*stack || !(*stack)->next)
+		error_mul_opcode(stack, line_number);
+	mul = ((*stack)->next->n) * ((*stack)->n);
+	(*stack)->next->n = mul;
+	temp = *stack;
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp->next = NULL;
+	free_memory(&temp);
+}
