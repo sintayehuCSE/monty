@@ -75,6 +75,9 @@ ssize_t read_line(char **line_buffer, unsigned int *line_number,
 	*check_off_set = ftell(file_ptr);
 	*line_number = *line_number + 1;
 	*line_buffer = read_buffer;
+	/**...Check for comment...*/
+	if (read_buffer[0] == '#')
+		return (i + 1);
 	extract_opcode(line_buffer, line_number, stack_head);
 	return (i + 1);
 }
@@ -108,7 +111,7 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 	};
 
 	op_code = strtok(*line_buffer, " \n\t");
-	if (!op_code)/**Check for empty or space full line + nop*/
+	if (!op_code)/**Check for empty or space full line*/
 		return (1);
 	while (av_op[i].opcode)
 	{
