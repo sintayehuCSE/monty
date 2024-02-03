@@ -51,6 +51,7 @@ void error_push_opcode(stack_t **, unsigned int);
 void error_pint_opcode(unsigned int);
 void error_pop_opcode(unsigned int);
 void error_swap_opcode(stack_t **, unsigned int);
+void error_add_opcode(stack_t **, unsigned int);
 void malloc_error(stack_t **);
 
 
@@ -77,6 +78,7 @@ void stack_pall(stack_t **, unsigned int);
 void stack_pint(stack_t **, unsigned int);
 void stack_pop(stack_t **, unsigned int);
 void stack_swap(stack_t **, unsigned int);
+void stack_add(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);

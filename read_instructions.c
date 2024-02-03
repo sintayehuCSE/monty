@@ -98,6 +98,7 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 		{"pint", stack_pint},
 		{"pop", stack_pop},
 		{"swap", stack_swap},
+		{"add", stack_add},
 		{NULL, NULL}
 	};
 
