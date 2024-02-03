@@ -57,3 +57,28 @@ void stack_sub(stack_t **stack, unsigned int line_number)
 	temp->next = NULL;
 	free_memory(&temp);
 }
+/**
+* stack_div - Divides the second top element of the stack by the top
+* element of the stack
+* @stack: Pointer to the head node of the stack
+* @line_number: The line where div opcode is located
+*
+* Return: Nothing
+*/
+void stack_div(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+	int div;
+
+	if (!*stack || !(*stack)->next)
+		error_div_opcode(stack, line_number);
+	if ((*stack)->n == 0)
+		error_div_by_zero(stack, line_number);
+	div = ((*stack)->next->n) / ((*stack)->n);
+	(*stack)->next->n = div;
+	temp = *stack;
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp->next = NULL;
+	free_memory(&temp);
+}
