@@ -113,3 +113,21 @@ void stack_pop(stack_t **stack, unsigned int line_number)
 	}
 
 }
+/**
+* stack_swap - Swaps the top two elements of the stack
+* @stack: Pointer to the head node of the stack
+* @line_number: Line number indicating position of swap operation
+* within the monty bytecode file
+*
+* Return: Nothing
+*/
+void stack_swap(stack_t **stack, unsigned int line_number)
+{
+	int num;
+
+	if (!*stack || !(*stack)->next)
+		error_swap_opcode(stack, line_number);
+	num = (*stack)->n;
+	(*stack)->n = (*stack)->next->n;
+	(*stack)->next->n = num;
+}
