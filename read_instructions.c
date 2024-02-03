@@ -95,6 +95,7 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 	instruction_t av_op[] = {
 		{"push", stack_push},
 		{"pall", stack_pall},
+		{"pint", stack_pint},
 		{NULL, NULL}
 	};
 

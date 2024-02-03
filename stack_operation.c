@@ -64,3 +64,23 @@ void stack_pall(stack_t **stack, unsigned int line_number)
 		}
 	}
 }
+/**
+* stack_pint - Prints the value at the top of the stack
+* @stack: Pointer to the head node of stack
+* @line_number: Line number of monty bytecode file where
+* pint opcode is located
+*
+* Return: Nothing
+*/
+void stack_pint(stack_t **stack, unsigned int line_number)
+{
+	int index = WRITE_BUFFER - 1;
+	char buf[WRITE_BUFFER];
+
+	if (!*stack)
+		error_pint_opcode(line_number);
+	convert_number_to_str((*stack)->n, &buf[index], &index);
+	_puts(&buf[index]);
+	_puts("\n");
+	_put(FLUSH_BUFFER);
+}

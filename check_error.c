@@ -80,3 +80,23 @@ void malloc_error(stack_t **stack_head)
 	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
+/**
+* error_pint_opcode - Check error for pinting empty stack
+* @line_number: Line number within monty bytecode file where
+* pint opcode for empty stack is found
+*
+* Return: Nothing
+*/
+void error_pint_opcode(unsigned int line_number)
+{
+	int index = WRITE_BUFFER - 1;
+	char buf[WRITE_BUFFER];
+
+	line_number = (int)line_number;
+	convert_number_to_str(line_number, &buf[index], &index);
+	_eputs("L");
+	_eputs(&buf[index]);
+	_eputs(": can't pint, stack empty\n");
+	_eput(FLUSH_BUFFER);
+	exit(EXIT_FAILURE);
+}
