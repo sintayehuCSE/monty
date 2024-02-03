@@ -34,3 +34,26 @@ void stack_nop(stack_t **stack, unsigned int line_number)
 	UNUSED(line_number);
 	UNUSED(stack);
 }
+/**
+* stack_sub - Substracts the top element of the stack from the second
+* top element of the stack
+* @stack: Pointer to the head node of the stack struct
+* @line_number: Line where sub opcode is located
+*
+* Return: Nothing
+*/
+void stack_sub(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+	int sub;
+
+	if (!*stack || !(*stack)->next)
+		error_sub_opcode(stack, line_number);
+	sub = ((*stack)->next->n) - ((*stack)->n);
+	(*stack)->next->n = sub;
+	temp = *stack;
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp->next = NULL;
+	free_memory(&temp);
+}

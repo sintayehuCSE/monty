@@ -63,3 +63,25 @@ void error_add_opcode(stack_t **stack_head, unsigned int line_number)
 	free_memory(stack_head);
 	exit(EXIT_FAILURE);
 }
+/**
+* error_sub_opcode - Check error for performing sub opcode on too short stack
+* @stack_head: Pointer to the head node of the stack struct
+* @line_number: Line number within monty bytecode file where
+* sub opcode for too short stack is captured
+*
+* Return: Nothing
+*/
+void error_sub_opcode(stack_t **stack_head, unsigned int line_number)
+{
+	int index = WRITE_BUFFER - 1;
+	char buf[WRITE_BUFFER];
+
+	line_number = (int)line_number;
+	convert_number_to_str(line_number, &buf[index], &index);
+	_eputs("L");
+	_eputs(&buf[index]);
+	_eputs(": can't sub, stack too short\n");
+	_eput(FLUSH_BUFFER);
+	free_memory(stack_head);
+	exit(EXIT_FAILURE);
+}
