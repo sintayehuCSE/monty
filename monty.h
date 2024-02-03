@@ -99,4 +99,5 @@ int free_memory(stack_t **);
 void convert_number_to_str(int, char *, int *);
 int len(char *);
 void parse_arg_str(char *, stack_t **, unsigned int);
+ssize_t check_comment(const char *);
 #endif /** MONTY_H*/

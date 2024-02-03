@@ -56,7 +56,7 @@ long capture_end_of_file(void)
 ssize_t read_line(char **line_buffer, unsigned int *line_number,
 		  long *check_off_set, stack_t **stack_head)
 {
-	ssize_t i = 0;
+	ssize_t i = 0, comment = 0;
 	char eol[1] = {'\n'};
 	char check_buf[1];
 	char read_buffer[READ_BUFFER];
@@ -76,7 +76,8 @@ ssize_t read_line(char **line_buffer, unsigned int *line_number,
 	*line_number = *line_number + 1;
 	*line_buffer = read_buffer;
 	/**...Check for comment...*/
-	if (read_buffer[0] == '#')
+	comment = check_comment(read_buffer);
+	if (comment)
 		return (i + 1);
 	extract_opcode(line_buffer, line_number, stack_head);
 	return (i + 1);

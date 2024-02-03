@@ -99,3 +99,22 @@ void parse_arg_str(char *str, stack_t **stack_head, unsigned int line_number)
 			str++;
 	}
 }
+/**
+* check_comment - Check if a line is comment line or not
+* @str: The line's string content
+* 
+* Return: 1 if true 0 otherwise
+*/
+ssize_t check_comment(const char *str)
+{
+	while (*str)
+	{
+		if (*str != 32 && *str != 35)
+			return (0);
+		else if (*str == 32)
+			str++;
+		else if (*str == 35)
+			return (1);
+	}
+	return (0);
+}
