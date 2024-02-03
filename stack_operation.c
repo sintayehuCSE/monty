@@ -10,14 +10,20 @@
 void stack_push(stack_t **stack, unsigned int line_number)
 {
 	char *arg = strtok(NULL, " \n\t");
-	int arg_int;
+	int arg_int = 0, is_negative = 0;
 
 	if (!arg)
 		error_push_opcode(stack, line_number);
-	arg_int = atoi(arg);
-	if (!arg_int && arg[0] != '0')
-		error_push_opcode(stack, line_number);
-	/**To be continued from here*/
+	if (arg[0] == '-' && len(arg) >= 2)
+	{
+		arg = &arg[1];
+		is_negative = 1;
+	}
+	parse_arg_str(arg, stack, line_number);
+	if (arg[0] != '0')
+		arg_int = atoi(arg);
+	if (is_negative)
+		arg_int *= -1;
 	add_node_top(stack, arg_int);
 }
 /**

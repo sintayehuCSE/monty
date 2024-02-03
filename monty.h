@@ -79,4 +79,6 @@ stack_t *add_node_top(stack_t **, int);
 /**........Utility/Special purpose functions.................*/
 int free_memory(stack_t **);
 void convert_number_to_str(int, char *, int *);
+int len(char *);
+void parse_arg_str(char *, stack_t **, unsigned int);
 #endif /** MONTY_H*/

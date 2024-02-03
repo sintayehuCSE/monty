@@ -35,12 +35,67 @@ int free_memory(stack_t **stack_head)
 */
 void convert_number_to_str(int num, char *str, int *idx)
 {
+	int is_negative = 0;
+
+	if (num < 0)
+	{
+		num *= -1;
+		is_negative = 1;
+	}
 	*str = '\0';
+	if (!num)
+	{
+		str--;
+		*str = '0';
+		*idx = *idx - 1;
+	}
 	while (num)
 	{
 		str--;
 		*str = (num % 10) + '0';
 		*idx = *idx - 1;
 		num = num / 10;
+	}
+	if (is_negative)
+	{
+		*idx = *idx - 1;
+		str--;
+		*str = '-';
+	}
+}
+/**
+* len - Calculate number of byte/bytes in a string
+* @str: The string whose byte number is to be calculated
+*
+* Return: The number of bytes in a string
+*/
+int len(char *str)
+{
+	int ln = 0;
+
+	while (*str)
+	{
+		ln++;
+		str++;
+	}
+	return (ln);
+}
+/**
+* parse_arg_str - Parse for non digit character in argument passed to
+* stack_push and other stack functions as atoi may be undefined for this case
+* @str: The argument string to be parsed
+* @stack_head: Pointer to the head of a stack
+* @line_number: Line number of operation with invalid argument
+*
+* Return: Nothing
+*/
+void parse_arg_str(char *str, stack_t **stack_head, unsigned int line_number)
+{
+	while (*str)
+	{
+		if (*str < 48 || *str > 57)
+			error_push_opcode(stack_head, line_number);
+		else
+			str++;
 	}
 }
