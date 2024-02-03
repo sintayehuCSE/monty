@@ -47,6 +47,7 @@ void stack_pall(stack_t **stack, unsigned int line_number)
 		{
 			while (head)
 			{
+				index = WRITE_BUFFER - 1;
 				temp = head->next;
 				convert_number_to_str(head->n, &buf[index], &index);
 				_puts(&buf[index]);
