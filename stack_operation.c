@@ -84,3 +84,32 @@ void stack_pint(stack_t **stack, unsigned int line_number)
 	_puts("\n");
 	_put(FLUSH_BUFFER);
 }
+/**
+* stack_pop - Remove the top element of the stack
+* @stack: Pointer to the head node of the stack struct
+* @line_number:Line number indicating position of pop operation
+* within the monty bytecode file
+*
+* Return: Nothing
+*/
+void stack_pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp = *stack;
+
+	if (!temp)
+		error_pop_opcode(line_number);
+
+	if ((*stack)->next)
+	{
+		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
+		temp->next = NULL;
+		free_memory(&temp);
+	}
+	else
+	{
+		free_memory(stack);
+		*stack = NULL;
+	}
+
+}

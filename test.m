@@ -1,5 +1,11 @@
 push 1
-push 2
 push 3
-pint
+push 4
 pall
+pop
+pall
+pop w23e
+pall
+pop
+pall
+pint
