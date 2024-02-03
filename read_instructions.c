@@ -51,7 +51,7 @@ long capture_end_of_file(void)
 * @check_off_set: Current position in the monty bytecode file
 * @stack_head: Pointer to the head node of stack struct
 *
-* Return: The number of instruction bytes on a line
+* Return: The number of bytes on a single line and it can't be zero.
 */
 ssize_t read_line(char **line_buffer, unsigned int *line_number,
 		  long *check_off_set, stack_t **stack_head)
@@ -61,7 +61,7 @@ ssize_t read_line(char **line_buffer, unsigned int *line_number,
 	char check_buf[1];
 	char read_buffer[READ_BUFFER];
 
-	/**Read in to a read_buffer untill you hit line feed*/
+	/**Read in to a read_buffer untill you hit line feed('\n')*/
 	fread(check_buf, 1, 1, file_ptr);
 	read_buffer[i] = check_buf[0];
 	while (eol[0] != read_buffer[i])
@@ -76,7 +76,7 @@ ssize_t read_line(char **line_buffer, unsigned int *line_number,
 	*line_number = *line_number + 1;
 	*line_buffer = read_buffer;
 	extract_opcode(line_buffer, line_number, stack_head);
-	return (i);
+	return (i + 1);
 }
 /**
 * extract_opcode - Extracts opcode on a single line of the monty bytecode

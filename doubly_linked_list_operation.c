@@ -10,7 +10,7 @@ stack_t *add_node_top(stack_t **stack_head, int int_arg)
 {
 	stack_t *new_node;
 
-	new_node = malloc(sizeof(stack_t));
+	new_node = (stack_t *)malloc(sizeof(stack_t));
 	if (!new_node)
 		malloc_error(stack_head);
 	if (!*stack_head)
@@ -23,7 +23,8 @@ stack_t *add_node_top(stack_t **stack_head, int int_arg)
 	}
 	new_node->n = int_arg;
 	new_node->prev = NULL;
-	new_node->next = (*stack_head)->prev;
+	new_node->next = *stack_head;
+	(*stack_head)->prev = new_node;
 	*stack_head = new_node;
 	return (new_node);
 }
