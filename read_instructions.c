@@ -99,11 +99,12 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 		{"pop", stack_pop},
 		{"swap", stack_swap},
 		{"add", stack_add},
+		{"nop", stack_nop},
 		{NULL, NULL}
 	};
 
 	op_code = strtok(*line_buffer, " \n\t");
-	if (!op_code)/**Check for empty or space full line*/
+	if (!op_code)/**Check for empty or space full line + nop*/
 		return (1);
 	while (av_op[i].opcode)
 	{

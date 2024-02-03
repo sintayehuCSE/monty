@@ -79,6 +79,7 @@ void stack_pint(stack_t **, unsigned int);
 void stack_pop(stack_t **, unsigned int);
 void stack_swap(stack_t **, unsigned int);
 void stack_add(stack_t **, unsigned int);
+void stack_nop(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);

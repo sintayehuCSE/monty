@@ -22,3 +22,15 @@ void stack_add(stack_t **stack, unsigned int line_number)
 	temp->next = NULL;
 	free_memory(&temp);
 }
+/**
+* stack_nop - The stack nop function for doing nothing
+* @stack: Pointer to head node of stack struct
+* @line_number: Line where nop opcode is found within the file
+*
+* Return: Nothing
+*/
+void stack_nop(stack_t **stack, unsigned int line_number)
+{
+	UNUSED(line_number);
+	UNUSED(stack);
+}
