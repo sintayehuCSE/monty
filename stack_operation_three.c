@@ -44,3 +44,40 @@ void stack_pchar(stack_t **stack, unsigned int line_number)
 	_put(10);
 	_put(FLUSH_BUFFER);
 }
+/**
+* stack_pstr - Prints the string starting at the top of the stack
+* @stack: Pointer to the head node of stack struct
+* @line_number: Line number where pstr opcode is located
+*
+* Return: Nothing
+*/
+void stack_pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *head = *stack;
+
+	UNUSED(line_number);
+	if (!head)
+	{
+		_put(10);
+		_put(FLUSH_BUFFER);
+	}
+	else
+	{
+		while (head)
+		{
+			if (head->n > 31 && head->n < 127)
+			{
+				_put(head->n);
+				_put(FLUSH_BUFFER);
+				head = head->next;
+			}
+			else
+			{
+				break;
+			}
+		}
+		/**if ((*stack)->n > 31 && (*stack)->n < 127)*/
+		_put(10);
+		_put(FLUSH_BUFFER);
+	}
+}

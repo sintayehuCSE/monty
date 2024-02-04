@@ -92,6 +92,7 @@ void stack_div(stack_t **, unsigned int);
 void stack_mul(stack_t **, unsigned int);
 void stack_mod(stack_t **, unsigned int);
 void stack_pchar(stack_t **, unsigned int);
+void stack_pstr(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);
