@@ -11,6 +11,7 @@ void stack_stack_mode(stack_t **stack, unsigned int line_number)
 {
 	UNUSED(line_number);
 	UNUSED(stack);
+	mode = 1;
 }
 /**
 * stack_queue_mode - Sets the operation mode of the stack_s struct
