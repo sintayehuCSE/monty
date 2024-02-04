@@ -14,7 +14,10 @@ void read_instructions(unsigned int *line_number, stack_t **stack_head)
 
 	end_of_file = capture_end_of_file();
 	if (!end_of_file)
+	{
+		fclose(file_ptr);
 		exit(EXIT_FAILURE);
+	}
 	if (read_line(&line_ptr, line_number, &check_off_set, stack_head))
 	{
 		while (check_off_set < end_of_file)

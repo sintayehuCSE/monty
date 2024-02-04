@@ -37,7 +37,7 @@ void stack_pchar(stack_t **stack, unsigned int line_number)
 
 	if (!*stack)
 		error_pchar_opcode(line_number);
-	if ((*stack)->n < 0 || (*stack)->n > 255)
+	if ((*stack)->n < 32 || (*stack)->n > 126)
 		error_ascii_overflow(stack, line_number);
 	top = (*stack)->n;
 	_put(top);
