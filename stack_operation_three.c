@@ -111,3 +111,29 @@ void stack_rotl(stack_t **stack, unsigned int line_number)
 
 	}
 }
+/**
+* stack_rotr - Rotates the stack to the bottom/make the tail of the stack
+* head of the stack and top of stack the 2nd top mos node of the stack plus
+* make the second last node of the stack tail/bottom of the stack
+* @stack: Pointer to the head node of the stack struct
+* @line_number: The line where rotr opcode is located
+*
+* Return: Nothing and never fails
+*/
+void stack_rotr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tail;
+
+	UNUSED(line_number);
+	if (*stack && (*stack)->next)
+	{
+		tail = *stack;
+		while (tail->next)
+			tail = tail->next;
+		tail->prev->next = NULL;
+		tail->prev = NULL;
+		(*stack)->prev = tail;
+		tail->next = *stack;
+		*stack = tail;
+	}
+}
