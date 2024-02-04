@@ -3,36 +3,37 @@
 * read_instructions - read each instruction from a monty bytecode file
 * @line_number: The instruction line number
 * @stack_head: Head node of the stack struct
+* @file_ptr: Pointer to the opened monty bytecode file
 *
 * Return: Nothing
 */
-void read_instructions(unsigned int *line_number, stack_t **stack_head)
+void read_instructions(unsigned int *line_number, stack_t **stack_head,
+		       FILE *file_ptr)
 {
 	char *line_ptr = NULL;
 	long check_off_set;
 	long end_of_file;
 
-	end_of_file = capture_end_of_file();
-	if (!end_of_file)
-	{
-		fclose(file_ptr);
+	end_of_file = capture_end_of_file(file_ptr);
+	if (!end_of_file)/**...Empty file...*/
 		exit(EXIT_FAILURE);
-	}
-	if (read_line(&line_ptr, line_number, &check_off_set, stack_head))
+	if (read_line(&line_ptr, line_number, &check_off_set, stack_head, file_ptr))
 	{
 		while (check_off_set < end_of_file)
 		{
-			read_line(&line_ptr, line_number, &check_off_set, stack_head);
+			read_line(&line_ptr, line_number, &check_off_set, stack_head,
+				  file_ptr);
 		}
 	}
 }
 /**
 * capture_end_of_file - Set factor for determining exhaustion of all
 * instruction within the monty bytecode file
+* @file_ptr: Pointer to the opened monty bytecode file
 *
 * Return: Nothing
 */
-long capture_end_of_file(void)
+long capture_end_of_file(FILE *file_ptr)
 {
 	long end_of_file;
 
@@ -53,11 +54,12 @@ long capture_end_of_file(void)
 * @line_number: The instruction line number
 * @check_off_set: Current position in the monty bytecode file
 * @stack_head: Pointer to the head node of stack struct
+* @file_ptr: Pointer to the opened monty bytecode file
 *
 * Return: The number of bytes on a single line and it can't be zero.
 */
 ssize_t read_line(char **line_buffer, unsigned int *line_number,
-		  long *check_off_set, stack_t **stack_head)
+		  long *check_off_set, stack_t **stack_head, FILE *file_ptr)
 {
 	ssize_t i = 0, comment = 0;
 	char eol[1] = {'\n'};
@@ -115,6 +117,8 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 		{"pstr", stack_pstr},
 		{"rotl", stack_rotl},
 		{"rotr", stack_rotr},
+		{"stack", stack_stack_mode},
+		{"queue", stack_queue_mode},
 		{NULL, NULL}
 	};
 

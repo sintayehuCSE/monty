@@ -24,7 +24,10 @@ void stack_push(stack_t **stack, unsigned int line_number)
 		arg_int = atoi(arg);
 	if (is_negative)
 		arg_int *= -1;
-	add_node_top(stack, arg_int);
+	if (mode == 2)
+		add_node_end(stack, arg_int);
+	else
+		add_node_top(stack, arg_int);
 }
 /**
 * stack_pall - Print all the values of stack, starting from top

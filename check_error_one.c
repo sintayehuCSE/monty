@@ -2,10 +2,11 @@
 /**
 * check_file_open_error - Check if a monty bytecode file open attempt fails
 * @filename: Monty bytecode filename
+* @file_ptr: Pointer to the opened monty bytecode file
 *
 * Return: Nothing
 */
-void check_file_open_error(const char *filename)
+void check_file_open_error(const char *filename, FILE *file_ptr)
 {
 	if (!file_ptr)
 	{
@@ -40,7 +41,6 @@ void error_invalid_opcode(unsigned int line_number, char *op_code,
 	_eputs("\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -63,7 +63,6 @@ void error_push_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": usage: push integer\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -77,7 +76,6 @@ void malloc_error(stack_t **stack_head)
 	_eputs("Error: malloc failed\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -98,6 +96,5 @@ void error_pint_opcode(unsigned int line_number)
 	_eputs(&buf[index]);
 	_eputs(": can't pint, stack empty\n");
 	_eput(FLUSH_BUFFER);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }

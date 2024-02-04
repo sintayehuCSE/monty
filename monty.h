@@ -11,7 +11,7 @@
 #define READ_BUFFER 1024
 #define WRITE_BUFFER 1024
 #define UNUSED(x) (void)(x)
-extern FILE *file_ptr;
+extern int mode;
 /**....List of needed data structures "Database tables, as I call them"...*/
 /**
 * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -69,14 +69,14 @@ void _put(const char);
 
 
 /**....Check file open operation error....*/
-void check_file_open_error(const char *);
+void check_file_open_error(const char *, FILE *);
 
 
 /**....Read each instruction in a monty bytecode..........................*/
-void read_instructions(unsigned int *, stack_t **);
-ssize_t read_line(char **, unsigned int *, long *, stack_t **);
+void read_instructions(unsigned int *, stack_t **, FILE *);
+ssize_t read_line(char **, unsigned int *, long *, stack_t **, FILE *);
 int extract_opcode(char **, unsigned int *, stack_t **);
-long capture_end_of_file(void);
+long capture_end_of_file(FILE *);
 
 
 /**........Stack Operations............*/
@@ -95,9 +95,12 @@ void stack_pchar(stack_t **, unsigned int);
 void stack_pstr(stack_t **, unsigned int);
 void stack_rotl(stack_t **, unsigned int);
 void stack_rotr(stack_t **, unsigned int);
+void stack_stack_mode(stack_t **, unsigned int);
+void stack_queue_mode(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);
+stack_t *add_node_end(stack_t **, int);
 
 
 /**........Utility/Special purpose functions.................*/

@@ -18,7 +18,6 @@ void error_div_by_zero(stack_t **stack_head, unsigned int line_number)
 	_eputs(": division by zero\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -40,7 +39,6 @@ void error_mul_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't mul, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -62,7 +60,6 @@ void error_mod_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't mod, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -83,7 +80,6 @@ void error_pchar_opcode(unsigned int line_number)
 	_eputs(&buf[index]);
 	_eputs(": can't pchar, stack empty\n");
 	_eput(FLUSH_BUFFER);
-	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -105,7 +101,6 @@ void error_ascii_overflow(stack_t **stack_head, unsigned int line_number)
 	_eputs(&buf[index]);
 	_eputs(": can't pchar, value out of range\n");
 	_eput(FLUSH_BUFFER);
-	fclose(file_ptr);
 	free_memory(stack_head);
 	exit(EXIT_FAILURE);
 }
