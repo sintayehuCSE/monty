@@ -58,6 +58,8 @@ void error_div_opcode(stack_t **, unsigned int);
 void error_div_by_zero(stack_t **, unsigned int);
 void error_mul_opcode(stack_t **, unsigned int);
 void error_mod_opcode(stack_t **, unsigned int);
+void error_pchar_opcode(unsigned int);
+void error_ascii_overflow(stack_t **, unsigned int);
 
 
 
@@ -89,6 +91,7 @@ void stack_sub(stack_t **, unsigned int);
 void stack_div(stack_t **, unsigned int);
 void stack_mul(stack_t **, unsigned int);
 void stack_mod(stack_t **, unsigned int);
+void stack_pchar(stack_t **, unsigned int);
 
 /**......Function for stack node manipulation.......*/
 stack_t *add_node_top(stack_t **, int);

@@ -98,5 +98,6 @@ void error_pint_opcode(unsigned int line_number)
 	_eputs(&buf[index]);
 	_eputs(": can't pint, stack empty\n");
 	_eput(FLUSH_BUFFER);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }

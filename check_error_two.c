@@ -17,6 +17,7 @@ void error_pop_opcode(unsigned int line_number)
 	_eputs(&buf[index]);
 	_eputs(": can't pop an empty stack\n");
 	_eput(FLUSH_BUFFER);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -39,6 +40,7 @@ void error_swap_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't swap, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -61,6 +63,7 @@ void error_add_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't add, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -83,6 +86,7 @@ void error_sub_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't sub, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
 /**
@@ -104,5 +108,6 @@ void error_div_opcode(stack_t **stack_head, unsigned int line_number)
 	_eputs(": can't div, stack too short\n");
 	_eput(FLUSH_BUFFER);
 	free_memory(stack_head);
+	fclose(file_ptr);
 	exit(EXIT_FAILURE);
 }
