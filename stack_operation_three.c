@@ -81,3 +81,33 @@ void stack_pstr(stack_t **stack, unsigned int line_number)
 		_put(FLUSH_BUFFER);
 	}
 }
+/**
+* stack_rotl - Rotates the stack to the top/move top node of stack
+* to tail node of stack
+* @stack: Pointer to the head node of the stack
+* @line_number: Line number where rotl opcode is found
+*
+* Return: Nothing and never fails
+*/
+void stack_rotl(stack_t **stack, unsigned int line_number)
+{
+	stack_t *head, *tail;
+
+	UNUSED(line_number);
+	if (*stack)
+	{
+		tail = *stack;
+		head = *stack;
+		while (tail->next)
+			tail = tail->next;
+		if (head->next)
+		{
+			*stack = head->next;
+			(*stack)->prev = NULL;
+			head->next = NULL;
+			tail->next = head;
+			head->prev = tail;
+		}
+
+	}
+}

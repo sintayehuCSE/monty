@@ -113,6 +113,7 @@ int extract_opcode(char **line_buffer, unsigned int *line_number,
 		{"mod", stack_mod},
 		{"pchar", stack_pchar},
 		{"pstr", stack_pstr},
+		{"rotl", stack_rotl},
 		{NULL, NULL}
 	};
 
